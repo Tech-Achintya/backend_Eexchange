@@ -43,9 +43,17 @@ public class AuthController {
             }
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("message", "Invalid login credentials"));
+        } catch (RuntimeException e) {
+            String msg = e.getMessage();
+            if (msg != null && msg.contains("User not found")) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(Map.of("message", "User not found"));
+            }
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", msg != null ? msg : "Login failed"));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Map.of("message", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "An unexpected error occurred"));
         }
     }
 
@@ -54,11 +62,17 @@ public class AuthController {
     public ResponseEntity<?> initiateSignup(@RequestBody Map<String, String> request) {
         String email = request.get("email");
         try {
+            // Check if user already exists before sending OTP
+            boolean exists = authService.userExists(email);
+            if (exists) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body(Map.of("message", "User already exists"));
+            }
             otpService.generateAndSaveOtp(email);
             return ResponseEntity.ok(Map.of("message", "OTP sent to " + email));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("message", "Error sending OTP"));
+                    .body(Map.of("message", "Error sending OTP: " + e.getMessage()));
         }
     }
 

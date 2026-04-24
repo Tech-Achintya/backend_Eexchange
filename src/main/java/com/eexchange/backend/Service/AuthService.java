@@ -46,4 +46,8 @@ public class AuthService {
         user.setName(newName);
         return userRepository.save(user);
     }
+
+    public boolean userExists(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
 }
