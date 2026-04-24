@@ -1,0 +1,100 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< com.eexchange:backend >------------------------
+[INFO] Building  0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 14 source files with javac [debug parameters release 21] to target\classes
+[INFO] Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/configuration/securityConfig.java:[19,8] class SecurityConfig is public, should be declared in a file named SecurityConfig.java
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[22,75] cannot find symbol
+  symbol:   method getEmail()
+  location: variable signupRequest of type com.eexchange.backend.DTO.SignupRequest
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[28,36] cannot find symbol
+  symbol:   method getEmail()
+  location: variable signupRequest of type com.eexchange.backend.DTO.SignupRequest
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[29,35] cannot find symbol
+  symbol:   method getName()
+  location: variable signupRequest of type com.eexchange.backend.DTO.SignupRequest
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[30,62] cannot find symbol
+  symbol:   method getPassword()
+  location: variable signupRequest of type com.eexchange.backend.DTO.SignupRequest
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[34,60] cannot find symbol
+  symbol:   method getEmail()
+  location: variable loginRequest of type com.eexchange.backend.DTO.LoginRequest
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[35,49] cannot find symbol
+  symbol:   method getPassword()
+  location: variable loginRequest of type com.eexchange.backend.DTO.LoginRequest
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[35,68] cannot find symbol
+  symbol:   method getPassword()
+  location: variable user of type com.eexchange.backend.Entity.User
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/CustomUserDetailsService.java:[24,75] cannot find symbol
+  symbol:   method getEmail()
+  location: variable user of type com.eexchange.backend.Entity.User
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/CustomUserDetailsService.java:[24,92] cannot find symbol
+  symbol:   method getPassword()
+  location: variable user of type com.eexchange.backend.Entity.User
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/configuration/securityConfig.java:[56,46] constructor DaoAuthenticationProvider in class org.springframework.security.authentication.dao.DaoAuthenticationProvider cannot be applied to given types;
+  required: org.springframework.security.core.userdetails.UserDetailsService
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/configuration/securityConfig.java:[57,48] incompatible types: com.eexchange.backend.Service.CustomUserDetailsService cannot be converted to org.springframework.security.core.userdetails.UserDetailsPasswordService
+[INFO] 12 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.252 s
+[INFO] Finished at: 2026-03-23T23:37:13+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project backend: Compilation failure: Compilation failure: 
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/configuration/securityConfig.java:[19,8] class SecurityConfig is public, should be declared in a file named SecurityConfig.java
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[22,75] cannot find symbol
+[ERROR]   symbol:   method getEmail()
+[ERROR]   location: variable signupRequest of type com.eexchange.backend.DTO.SignupRequest
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[28,36] cannot find symbol
+[ERROR]   symbol:   method getEmail()
+[ERROR]   location: variable signupRequest of type com.eexchange.backend.DTO.SignupRequest
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[29,35] cannot find symbol
+[ERROR]   symbol:   method getName()
+[ERROR]   location: variable signupRequest of type com.eexchange.backend.DTO.SignupRequest
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[30,62] cannot find symbol
+[ERROR]   symbol:   method getPassword()
+[ERROR]   location: variable signupRequest of type com.eexchange.backend.DTO.SignupRequest
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[34,60] cannot find symbol
+[ERROR]   symbol:   method getEmail()
+[ERROR]   location: variable loginRequest of type com.eexchange.backend.DTO.LoginRequest
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[35,49] cannot find symbol
+[ERROR]   symbol:   method getPassword()
+[ERROR]   location: variable loginRequest of type com.eexchange.backend.DTO.LoginRequest
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/AuthService.java:[35,68] cannot find symbol
+[ERROR]   symbol:   method getPassword()
+[ERROR]   location: variable user of type com.eexchange.backend.Entity.User
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/CustomUserDetailsService.java:[24,75] cannot find symbol
+[ERROR]   symbol:   method getEmail()
+[ERROR]   location: variable user of type com.eexchange.backend.Entity.User
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/Service/CustomUserDetailsService.java:[24,92] cannot find symbol
+[ERROR]   symbol:   method getPassword()
+[ERROR]   location: variable user of type com.eexchange.backend.Entity.User
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/configuration/securityConfig.java:[56,46] constructor DaoAuthenticationProvider in class org.springframework.security.authentication.dao.DaoAuthenticationProvider cannot be applied to given types;
+[ERROR]   required: org.springframework.security.core.userdetails.UserDetailsService
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /E:/SomeThingProject/backend/src/main/java/com/eexchange/backend/configuration/securityConfig.java:[57,48] incompatible types: com.eexchange.backend.Service.CustomUserDetailsService cannot be converted to org.springframework.security.core.userdetails.UserDetailsPasswordService
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
