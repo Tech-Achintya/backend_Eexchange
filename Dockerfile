@@ -1,46 +1,37 @@
 # Stage 1: Build the Spring Boot application
-# Uses a JDK 21 image from Eclipse Temurin for compilation.
-FROM eclipse-temurin:21-jdk-focal AS builder
+# Using 'jammy' instead of 'focal' which fully supports Java 21
+FROM eclipse-temurin:21-jdk-jammy AS builder
 
-# Set the working directory inside the container for the build stage.
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Maven wrapper and its directory.
-# This allows you to use the Maven wrapper (mvnw) inside the container.
+# Copy the Maven wrapper and its directory
 COPY mvnw .
 COPY .mvn .mvn
 
-# Copy the build configuration file.
-# pom.xml: Main Maven build file.
+# Copy the build configuration file
 COPY pom.xml .
 
-# Copy the source code.
-# The `src` directory contains your Java source files, resources, etc.
+# Copy the source code
 COPY src src
 
-# Make the Maven wrapper script executable (useful for Linux/Mac environments).
+# Make the Maven wrapper script executable
 RUN chmod +x mvnw
 
-# Build the Spring Boot application into an executable JAR.
-# `clean package` creates the executable JAR in the target/ directory.
-# `-DskipTests` skips running tests during the Docker build, speeding it up.
+# Build the Spring Boot application
 RUN ./mvnw clean package -DskipTests
 
 # Stage 2: Create the final, lightweight runtime image
-# Uses a JRE 21 image, which is much smaller than a full JDK image.
-FROM eclipse-temurin:21-jre-focal
+FROM eclipse-temurin:21-jre-jammy
 
-# Set the working directory inside the container for the runtime stage.
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the executable JAR from the builder stage to the final image.
-# The JAR is copied from `/app/target/backend-0.0.1-SNAPSHOT.jar` (based on your pom.xml)
-# and renamed to `app.jar` in the current stage for simplicity.
+# Copy the executable JAR from the builder stage
 COPY --from=builder /app/target/backend-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose the default port on which your Spring Boot application will listen (8080).
+# Expose the port
 EXPOSE 8080
 
-# Define the command to run your application when the container starts.
-# Spring Boot will respect the `PORT` environment variable if set by hosting platforms like Render.
+# Define the command to run your application
 ENTRYPOINT ["java", "-jar", "app.jar"]
