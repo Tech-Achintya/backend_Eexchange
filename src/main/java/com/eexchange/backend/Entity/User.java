@@ -23,5 +23,7 @@ public class User {
     private String email;
 
     private String password;
+    private UserRole role = UserRole.ROLE_USER;
+    private boolean blocked = false;
     private LocalDateTime createdAt;
 }

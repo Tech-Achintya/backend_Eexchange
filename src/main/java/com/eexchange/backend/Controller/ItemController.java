@@ -45,7 +45,17 @@ public class ItemController {
     public ResponseEntity<items> editItem(@PathVariable String id, @RequestBody UpdateItemRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
-        items updated = itemService.editItem(id, userEmail, request);
+        String role = authentication.getAuthorities().stream().findFirst().get().getAuthority();
+        items updated = itemService.editItem(id, userEmail, role, request);
         return new ResponseEntity<>(updated, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteItem(@PathVariable String id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+        String role = authentication.getAuthorities().stream().findFirst().get().getAuthority();
+        itemService.deleteMyItem(id, userEmail, role);
+        return ResponseEntity.ok(java.util.Map.of("message", "Item deleted successfully"));
     }
 }

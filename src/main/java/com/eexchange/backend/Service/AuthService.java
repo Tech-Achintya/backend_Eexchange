@@ -34,6 +34,11 @@ public class AuthService {
     }
     public User login(LoginRequest loginRequest){
         User user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
+        
+        if (user.isBlocked()) {
+            throw new RuntimeException("Your account has been blocked by an administrator");
+        }
+
         if(!passwordEncoder.matches(loginRequest.getPassword(),user.getPassword())){
             throw new RuntimeException("Invalid User");
         }

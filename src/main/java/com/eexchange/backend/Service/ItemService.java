@@ -19,7 +19,7 @@ public class ItemService {
     }
 
     public items addItem(items item, String userEmail) {
-        item.setStatus(ItemStatus.AVAILABLE);
+        item.setStatus(ItemStatus.PENDING);
         item.setUserEmail(userEmail);           //set the logged-in user's email
         item.setCreatedAt(LocalDateTime.now());
         item.setUpdatedAt(LocalDateTime.now());
@@ -27,18 +27,19 @@ public class ItemService {
     }
 
     public List<items> getAll() {
-        return itemRepository.findAll();
+        return itemRepository.findByStatus(ItemStatus.AVAILABLE);
     }
 
     public List<items> getMyItems(String userEmail) {
         return itemRepository.findByUserEmail(userEmail);
     }
 
-    public items editItem(String itemId, String userEmail, UpdateItemRequest request) {
+    public items editItem(String itemId, String userEmail, String role, UpdateItemRequest request) {
         items existing = itemRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Item not found"));
 
-        if (!existing.getUserEmail().equals(userEmail)) {
+        boolean isAdmin = "ROLE_ADMIN".equals(role);
+        if (!existing.getUserEmail().equals(userEmail) && !isAdmin) {
             throw new RuntimeException("You are not authorized to edit this item");
         }
 
@@ -48,5 +49,33 @@ public class ItemService {
         existing.setUpdatedAt(LocalDateTime.now());
         existing.setCategory(request.getCategory());
         return itemRepository.save(existing);
+    }
+
+    public List<items> getPendingItems() {
+        return itemRepository.findByStatus(ItemStatus.PENDING);
+    }
+
+    public items approveItem(String itemId) {
+        items item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+        item.setStatus(ItemStatus.AVAILABLE);
+        item.setUpdatedAt(LocalDateTime.now());
+        return itemRepository.save(item);
+    }
+
+    public void declineItem(String itemId) {
+        itemRepository.deleteById(itemId);
+    }
+
+    public void deleteMyItem(String itemId, String userEmail, String role) {
+        items item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+        
+        boolean isAdmin = "ROLE_ADMIN".equals(role);
+        if (!item.getUserEmail().equals(userEmail) && !isAdmin) {
+            throw new RuntimeException("You are not authorized to delete this item");
+        }
+        
+        itemRepository.deleteById(itemId);
     }
 }

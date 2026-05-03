@@ -27,7 +27,7 @@ public class items {
     private String description;
     @Indexed
     private String category;
-    private ItemStatus status = ItemStatus.AVAILABLE;
+    private ItemStatus status = ItemStatus.PENDING;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
